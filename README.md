@@ -5,7 +5,7 @@ Docker installation script to perfom tests  under national dump using a Fedora26
 
 With curl
 ```shell
-curl -O https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-install.sh && chmod +x
+curl -O https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-install.sh && chmod +x docker-install.sh
 ```
 
 ## How to use
