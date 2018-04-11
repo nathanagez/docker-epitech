@@ -1,6 +1,13 @@
 # docker-epitech
 Docker installation script to perfom tests  under national dump using a Fedora26 container
 
+## Installation
+
+With curl
+```shell
+curl -O https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-install.sh && chmod +x
+```
+
 ## How to use
 
 ```shell
