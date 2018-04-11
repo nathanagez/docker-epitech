@@ -67,11 +67,27 @@ function install_linux() {
                 echo -e "\e[1m\e[32m[+] \e[39mDocker is now installed and is working correctly"
         fi
         curl -O https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
-        mv docker-compile.sh /usr/bin
-        chmod +x /usr/bin/docker-compile.sh
+        sudo mv docker-compile.sh /usr/bin
+        sudo chmod +x /usr/bin/docker-compile.sh
+}
+
+version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version | tail -n 1 )
+
+function checkVersion() {
+        if [ $version != "2.0" ]; then
+                echo -e "\e[1m\e[32m[+] \e[39mUpdating ..."
+                curl -o docker-install.tmp https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-install.sh
+                mv $0 docker-install.old
+                mv docker-install.tmp docker-install.sh
+                rm -f docker-install.old
+                chmod +x docker-install.sh
+                echo -e "\e[1m\e[32m[+] \e[39mDone restart script"
+                exit
+        fi
 }
 
 if [ $# -eq 0 ]; then
+        checkVersion $version
         display_help
 fi
 
@@ -81,9 +97,11 @@ then
         exit
 elif [ $1 = "--install" ] && [ $2 = "--ubuntu" ]
 then
+        checkVersion $version
         install_linux
         exit
 else
+        checkVersion $version
         display_help
         exit
 fi

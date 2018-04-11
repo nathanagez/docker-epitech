@@ -1,5 +1,20 @@
 #!/bin/bash
 
+version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version | head -n 1 )
+
+function checkVersion() {
+        if [ $version != "1.0" ]; then
+                echo -e "\e[1m\e[32m[+] \e[39mUpdating ..."
+                sudo curl -o docker-compile.tmp https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
+                sudo mv $0 docker-compile.old
+                sudo mv docker-compile.tmp docker-compile.sh
+                sudo rm -f docker-compile.old
+                sudo chmod +x docker-compile.sh
+                echo -e "\e[1m\e[32m[+] \e[39mDone restart script"
+                exit
+        fi
+}
+
 function display_help() {
         echo -e "\e[1m\e[21mUSAGE : \n\t" $0 " [PATH] [FLAG] [OPTION]"
         echo -e "FLAGS :"
@@ -50,20 +65,14 @@ function checkImageExist() {
         fi
 }
 
-version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version)
-if [ $version != "1.0" ]; then
-        curl -o docker-compile.tmp https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
-        mv $0 docker-compile.old
-        mv docker-compile.tmp docker-compile.sh
-        rm -f docker-compile.old
-fi
-
 if [ $# -eq 0 ]; then
+        checkVersion
         display_help
         exit
 fi
 
 if [ ! -z $1 ] && [ $2 == "--make" ]; then
+        checkVersion
         checkImageExist $1
         deleteContainer
 fi
