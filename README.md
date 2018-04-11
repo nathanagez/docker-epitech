@@ -21,3 +21,6 @@ OPTIONS :
         --ubuntu        Process on linux
         --OSX           (Not actually available) Process on Mac Systems
 ```
+
+## Demo
+![GIF](https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/demo/demo.gif)
