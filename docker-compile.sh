@@ -1,9 +1,8 @@
 #!/bin/bash
 
-version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version | head -n 1 )
-
 function checkVersion() {
-        if [ $version != "1.0" ]; then
+        version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version | head -n 1 )
+        if [ "$version" != "1.0" ]; then
                 echo -e "\e[1m\e[32m[+] \e[39mUpdating ..."
                 sudo curl -o docker-compile.tmp https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
                 sudo mv $0 docker-compile.old
@@ -48,9 +47,10 @@ function compileProject() {
 }
 
 function checkImageExist() {
+
         image=$(docker images -f "reference=epitechcontent/epitest-docker" --format "{{.Repository}}")
 
-        if [ -z $image ]; then
+        if [ -z "$image" ]; then
                 echo -e "\e[1m\e[32m[+]\e[39m Image not found locally, it will be dowloaded from the Hub"
                 docker pull epitechcontent/epitest-docker
                 startContainer $1
@@ -76,6 +76,7 @@ if [ ! -z $1 ] && [ $2 == "--make" ]; then
         checkImageExist $1
         deleteContainer
 else
+        checkVersion
         display_help
         exit
 fi
