@@ -66,9 +66,14 @@ function install_linux() {
         if [ $? -eq 0 ]; then
                 echo -e "\e[1m\e[32m[+] \e[39mDocker is now installed and is working correctly"
         fi
-        curl -O https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
+        echo -e "\e[1m\e[32m[+] \e[39mRemoving docker containers ..."
+        sudo docker container rm -f $(docker ps -aq)
+        echo -e "\e[1m\e[32m[+] \e[39mDone\nDonwloading docker-compile ..."
+        curl -O -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
+        echo -e "\e[1m\e[32m[+] \e[39mDone"
         sudo mv docker-compile.sh /usr/bin
         sudo chmod +x /usr/bin/docker-compile.sh
+        echo -e "\e[1m\e[32m[+] \e[39mMoved to /usr/bin.\nDon't forget to Start my repository"
 }
 
 version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version | tail -n 1 )

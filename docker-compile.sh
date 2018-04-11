@@ -75,4 +75,7 @@ if [ ! -z $1 ] && [ $2 == "--make" ]; then
         checkVersion
         checkImageExist $1
         deleteContainer
+else
+        display_help
+        exit
 fi
