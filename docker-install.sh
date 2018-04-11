@@ -66,7 +66,9 @@ function install_linux() {
         if [ $? -eq 0 ]; then
                 echo -e "\e[1m\e[32m[+] \e[39mDocker is now installed and is working correctly"
         fi
-
+        curl -O https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
+        mv docker-compile.sh /usr/bin
+        chmod +x /usr/bin/docker-compile.sh
 }
 
 if [ $# -eq 0 ]; then
