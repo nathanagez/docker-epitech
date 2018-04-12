@@ -2,7 +2,7 @@
 
 function checkVersion() {
         version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version | head -n 1 )
-        if [ "$version" != "1.5" ]; then
+        if [ "$version" != "1.6" ]; then
                 echo -e "\e[1m\e[32m[+] \e[0mUpdating ..."
                 sudo curl -o docker-compile.tmp https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
                 sudo mv $0 docker-compile.old
@@ -11,6 +11,7 @@ function checkVersion() {
                 sudo chmod +x docker-compile
                 if [ ! -d ~/bin/ ]; then
                         mkdir ~/bin/
+                        export PATH=~/bin/:$PATH
                 fi
                 sudo mv docker-compile ~/bin/
                 if [ -e /usr/bin/docker-compile.sh ]
@@ -24,7 +25,7 @@ function checkVersion() {
 }
 
 function display_help() {
-        echo -e "\e[1m\e[21mUSAGE : \n\t" $0 " [PATH] [FLAG] [OPTION]"
+        echo -e "\e[1m\e[21mUSAGE : \n\t docker-compile [PATH] [FLAG] [OPTION]"
         echo -e "FLAGS :"
         echo -e "\t--make               Compile project"
         echo -e "OPTIONS :"

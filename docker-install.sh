@@ -70,6 +70,7 @@ function install_linux() {
         echo -e "\e[1m\e[32m[+] \e[39mDone"
         if [ ! -d ~/bin/ ]; then
                 mkdir ~/bin/
+                export PATH=~/bin/:$PATH
         fi
         sudo mv docker-compile ~/bin/
         sudo chmod +x ~/bin/docker-compile
@@ -79,7 +80,7 @@ function install_linux() {
 version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version | tail -n 1 )
 
 function checkVersion() {
-        if [ $version != "2.2" ]; then
+        if [ $version != "2.3" ]; then
                 echo -e "\e[1m\e[32m[+] \e[39mUpdating ..."
                 curl -o docker-install.tmp https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-install.sh
                 mv $0 docker-install.old

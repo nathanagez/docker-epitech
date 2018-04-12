@@ -26,6 +26,15 @@ OPTIONS :
 ![GIF](https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/demo/demo.gif)
 
 ## Changelog
+### docker-compile [1.6] - 2018-04-12
+#### Fix
+- Fix folder check
+- Fix PATH export
+#### Change
+- Removed .sh extension
+### docker-install.sh [2.3] - 2018-04-12
+- Fix folder check to perform a copy of docker-compile
+- Fix PATH export
 ### docker-compile.sh [1.3] - 2018-04-12
 #### Fix
 - Fix permissions with docker daemon
