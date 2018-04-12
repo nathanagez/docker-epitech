@@ -6,7 +6,7 @@ function checkVersion() {
                 echo -e "\e[1m\e[32m[+] \e[0mNew update available ..."
                 sudo curl -o docker-compile.tmp https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
                 echo -e "\e[1m\e[32m[+] \e[0mDownloaded"
-                sudo mv $0 docker-compile.old
+                sudo mv docker-compile docker-compile.old
                 sudo mv docker-compile.tmp docker-compile
                 sudo rm -f docker-compile.old
                 sudo chmod +x docker-compile
@@ -23,7 +23,7 @@ function checkVersion() {
 	                sudo rm -f /usr/bin/docker-compile.sh
                         echo -e "\e[1m\e[32m[+] \e[0mDeleted"
                 fi
-                echo -e "\e[1m\e[32m[+] \e[0mNDone. Restart your script"
+                echo -e "\e[1m\e[32m[+] \e[0mDone. Restart your script"
                 exit
         fi
 }
