@@ -25,20 +25,20 @@ function display_help() {
 }
 
 function copyWorkspace() {
-        docker cp $1 epi:/home/compilation/
+        sudo docker cp $1 epi:/home/compilation/
 }
 
 function startContainer() {
-        docker container run -d -t --name epi epitechcontent/epitest-docker bash &> /dev/null
+        sudo docker container run -d -t --name epi epitechcontent/epitest-docker bash &> /dev/null
         copyWorkspace $1
 }
 
 function deleteContainer() {
-        docker container rm -f epi &> /dev/null
+        sudo docker container rm -f epi &> /dev/null
 }
 
 function compileProject() {
-        docker container exec epi bash -c "cd /home/compilation/ && make"
+        sudo docker container exec epi bash -c "cd /home/compilation/ && make"
         if [ $? != 0 ]; then
                 echo -e "\n\e[31m/!\ BUILD FAIL\e[39m"
         else
@@ -48,11 +48,11 @@ function compileProject() {
 
 function checkImageExist() {
 
-        image=$(docker images -f "reference=epitechcontent/epitest-docker" --format "{{.Repository}}")
+        image=$(sudo docker images -f "reference=epitechcontent/epitest-docker" --format "{{.Repository}}")
 
         if [ -z "$image" ]; then
                 echo -e "\e[1m\e[32m[+]\e[39m Image not found locally, it will be dowloaded from the Hub"
-                docker pull epitechcontent/epitest-docker
+                sudo docker pull epitechcontent/epitest-docker
                 startContainer $1
                 compileProject
                 deleteContainer
