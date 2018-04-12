@@ -41,7 +41,7 @@ function copyWorkspace() {
 }
 
 function startContainer() {
-        sudo docker container run -d -t --name epi epitechcontent/epitest-docker bash &> /dev/null
+        sudo docker container run -d -ti --name epi epitechcontent/epitest-docker bash &> /dev/null
         copyWorkspace $1
 }
 
@@ -53,9 +53,12 @@ function compileProject() {
         sudo docker container exec epi bash -c "cd /home/compilation/ && make"
         if [ $? != 0 ]; then
                 echo -e "\n\e[31m/!\ BUILD FAIL\e[0m"
+                return 1
         else
                 echo -e "\n\e[92m[+] BUILD COMPLETE\e[0m"
+                return 0
         fi
+
 }
 
 function checkImageExist() {
@@ -83,15 +86,16 @@ if [ ! -z $1 ] && [ $2 == "-m" ]; then
         checkVersion
         checkImageExist $1
         compileProject
-        deleteContainer
-elif [ ! -z $1 ] && [ $2 == "-m" ] && [ $3 == "-v" ] && [ ! -z $4 ]; then
-        checkVersion
-        checkImageExist $1
-        compileProject
-        if [ $? != 0 ]; then
-                echo -e "\n\e[31m/!\ Cannot go futher\e[0m"
+        if [ $? -eq 0 ] && [ ! -z $3 ]; then
+                if [ $3 == "-v" ] && [ ! -z $4 ]; then
+                        echo -e "\n\e[0m\e[96m========VALGRIND========\e[0m"
+                        sudo docker container exec -ti epi bash -c "cd /home/compilation/ ; valgrind ./$4 $5 $6"
+                elif [ $3 == "-i" ] && [ ! -z $4 ]; then
+                        echo -e "\n\e[0m\e[96m========LIVE EXEC========\e[0m"
+                        sudo docker container exec -ti epi bash -c "cd /home/compilation/ ; ./$4 $5 $6"
+                fi
         fi
-
+        deleteContainer
 else
         checkVersion
         display_help
