@@ -3,18 +3,17 @@
 function checkVersion() {
         version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version | head -n 1 )
         if [ "$version" != "1.7" ]; then
+                echo -e "\e[1m\e[32m[+] \e[0mNew update available ..."
                 if [ ! -d ~/bin/ ]; then
                         mkdir ~/bin/
                         export PATH=~/bin/:$PATH
                         echo -e "\e[1m\e[32m[+] \e[0m~/bin/ added to PATH"
                 fi
-                echo -e "\e[1m\e[32m[+] \e[0mNew update available ..."
                 sudo curl -o ~/bin/docker-compile.tmp https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
                 echo -e "\e[1m\e[32m[+] \e[0mDownloaded"
-                sudo mv $0 ~/bin/docker-compile.old
+                sudo mv ~/bin/docker-compile ~/bin/docker-compile.old
                 sudo mv ~/bin/docker-compile.tmp ~/bin/docker-compile
                 sudo rm -f ~/bin/docker-compile.old
-                sudo mv ~/bin/docker-compile ~/bin/
                 sudo chmod +x ~/bin/docker-compile
                 if [ -e /usr/bin/docker-compile.sh ]
                 then
