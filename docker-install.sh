@@ -53,9 +53,9 @@ function install_linux() {
         if [ $? -eq 0 ]; then
                 echo -e "\e[1m\e[32m[+] \e[39mAdded stable repository"
         fi
-        sudo apt-get update &> logs
+        sudo apt-get update -y &> logs
         echo -e "\e[1m\e[32m[+] \e[39mInstallation of docker-ce ..."
-        sudo apt-get install docker-ce &> logs
+        sudo apt-get install docker-ce -y &> logs
         if [ $? -eq 0 ]; then
                 echo -e "\e[1m\e[32m[+] \e[39mdocker-ce successfully installed"
         fi
@@ -79,7 +79,7 @@ function install_linux() {
 version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version | tail -n 1 )
 
 function checkVersion() {
-        if [ $version != "2.0" ]; then
+        if [ $version != "2.1" ]; then
                 echo -e "\e[1m\e[32m[+] \e[39mUpdating ..."
                 curl -o docker-install.tmp https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-install.sh
                 mv $0 docker-install.old
