@@ -30,6 +30,6 @@ OPTIONS :
 #### Fix
 - Fix permissions with docker daemon
 - Fix update function that doesn't copy script file in /usr/bin
-### docker-install [2.1] - 2018-04-12
+### docker-install.sh [2.1] - 2018-04-12
 - Fix automatic yes to prompts
 - Fix permissions with docker daemon

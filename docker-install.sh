@@ -6,9 +6,6 @@ function display_help() {
         echo -e "\t--install            \e[1mInstall\e[21m"
         echo -e "\t--uninstall          \e[1mUninstall docker\e[21m"
         echo -e "\t--clean              \e[1mRemove old docker version\e[21m"
-        echo -e "OPTIONS :"
-        echo -e "\t--ubuntu              \e[1mProcess on linux\e[21m"
-        echo -e "\t--OSX                \e[1mProcess on Mac Systems\e[21m"
         exit
 }
 
