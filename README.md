@@ -24,3 +24,12 @@ OPTIONS :
 
 ## Demo
 ![GIF](https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/demo/demo.gif)
+
+## Changelog
+### docker-compile.sh [1.3] - 2018-04-12
+#### Fix
+- Fix permissions with docker daemon
+- Fix update function that doesn't copy script file in /usr/bin
+### docker-install [2.1] - 2018-04-12
+- Fix automatic yes to prompts
+- Fix permissions with docker daemon
