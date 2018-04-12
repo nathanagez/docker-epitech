@@ -17,8 +17,17 @@ function clean_linux() {
                 echo -e "Check for docker.io\e[1m\e[32m OK\e[0m"
         else
                 echo -e "\e[1m\e[91m[-] \e[0mError check logs"
-                erreur=1
         fi
+}
+
+function uninstall_linux() {
+        sudo apt-get remove -y docker-ce &> logs
+        echo -e "\e[1m\e[32m[+] \e[0mdocker-ce removed"
+        if [ -e ~/bin/docker-compile ]; then
+                sudo rm -f ~/bin/docker-compile
+                echo -e "\e[1m\e[32m[+] \e[0mdocker-compile script removed from ~/bin/"
+        fi
+        exit
 }
 
 function install_linux() {
@@ -109,6 +118,10 @@ then
         checkVersion $version
         install_linux
         exit
+elif [ $1 == "--uninstall" ]
+then
+        checkVersion $version
+        uninstall_linux
 else
         checkVersion $version
         display_help
