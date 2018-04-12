@@ -26,6 +26,11 @@ OPTIONS :
 ![GIF](https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/demo/demo.gif)
 
 ## Changelog
+### docker-install.sh [2.4] - 2018-04-12
+### docker-compile [1.7] - 2018-04-12
+#### Change
+- Edited font
+
 ### docker-compile [1.6] - 2018-04-12
 #### Fix
 - Fix folder check
@@ -35,6 +40,7 @@ OPTIONS :
 ### docker-install.sh [2.3] - 2018-04-12
 - Fix folder check to perform a copy of docker-compile
 - Fix PATH export
+
 ### docker-compile.sh [1.3] - 2018-04-12
 #### Fix
 - Fix permissions with docker daemon

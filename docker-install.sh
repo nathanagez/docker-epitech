@@ -1,23 +1,22 @@
 #!/bin/bash
 
 function display_help() {
-        echo -e "\e[1m\e[21mUSAGE : \n\t" $0 " [FLAG] [OPTION]"
-        echo -e "FLAGS :"
-        echo -e "\t--install            \e[1mInstall\e[21m"
-        echo -e "\t--uninstall          \e[1mUninstall docker\e[21m"
-        echo -e "\t--clean              \e[1mRemove old docker version\e[21m"
+        echo -e "\e[1mUSAGE :\e[0m \n\t docker-install.sh \e[1m[FLAG]\e[0m"
+        echo -e "\e[1mFLAGS :\e[0m"
+        echo -e "\t--install            Install"
+        echo -e "\t--uninstall          Uninstall docker"
+        echo -e "\t--clean              Remove old docker version"
         exit
 }
 
 function clean_linux() {
         sudo apt-get remove docker docker-engine docker.io &> logs
         if [ $? -eq 0 ]; then
-                echo -e "\e[32m\e[39mCheck for docker"
-                echo -e "\e[32m\e[39mCheck for docker-engine"
-                echo -e "\e[32m\e[39mCheck for docker.io"
-                echo -e "\e[1m\e[32m[+] OK"
+                echo -e "Check for docker\e[1m\e[32m OK\e[0m"
+                echo -e "Check for docker-engine\e[1m\e[32m OK\e[0m"
+                echo -e "Check for docker.io\e[1m\e[32m OK\e[0m"
         else
-                echo -e "\e[91m[-] Error check logs\e[39m"
+                echo -e "\e[1m\e[91m[-] \e[0mError check logs"
                 erreur=1
         fi
 }
@@ -25,7 +24,8 @@ function clean_linux() {
 function install_linux() {
         sudo apt-get update &> logs
         if [ $? -ne 0 ]; then
-                echo -e "\e[91m[-] Error while updating sources\e[39m"
+                echo -e "\e[1m\e[91m[-] \e[0mError while updating sources"
+                exit
         fi
         sudo apt-get install \
         apt-transport-https \
@@ -33,61 +33,64 @@ function install_linux() {
         curl \
         software-properties-common &> logs
         if [ $? -eq 0 ]; then
-                echo -e "\e[1m\e[32m[+] \e[39mapt-transport-https"
-                echo -e "\e[1m\e[32m[+] \e[39mca-certificates"
-                echo -e "\e[1m\e[32m[+] \e[39mcurl"
-                echo -e "\e[1m\e[32m[+] \e[39msoftware-properties-common"
+                echo -e "\e[1m\e[32m[+] \e[0mapt-transport-https"
+                echo -e "\e[1m\e[32m[+] \e[0mca-certificates"
+                echo -e "\e[1m\e[32m[+] \e[0mcurl"
+                echo -e "\e[1m\e[32m[+] \e[0msoftware-properties-common"
         fi
         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - &> logs
         if [ $? -eq 0 ]; then
-                echo -e "\e[1m\e[32m[+] \e[39mAdded key from https://download.docker.com/linux/ubuntu/gpg"
+                echo -e "\e[1m\e[32m[+] \e[0mAdded key from https://download.docker.com/linux/ubuntu/gpg"
         fi
-        sudo apt-key fingerprint 0EBFCD88
+        sudo apt-key fingerprint 0EBFCD88 &> logs
         sudo add-apt-repository \
         "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         $(lsb_release -cs) \
         stable" &> logs
         if [ $? -eq 0 ]; then
-                echo -e "\e[1m\e[32m[+] \e[39mAdded stable repository"
+                echo -e "\e[1m\e[32m[+] \e[0mAdded stable repository"
         fi
         sudo apt-get update -y &> logs
-        echo -e "\e[1m\e[32m[+] \e[39mInstallation of docker-ce ..."
+        echo -e "\e[1m\e[32m[+] \e[0mInstalling docker-ce ..."
         sudo apt-get install docker-ce -y &> logs
         if [ $? -eq 0 ]; then
-                echo -e "\e[1m\e[32m[+] \e[39mdocker-ce successfully installed"
+                echo -e "\e[1m\e[32m[+] \e[0mdocker-ce successfully installed"
         fi
         if [ $? -eq 0 ]; then
-                echo -e "\e[1m\e[32m[+] \e[39mTesting installation ..."
+                echo -e "\e[1m\e[32m[+] \e[0mTesting installation ..."
         fi
-        sudo docker run hello-world
+        sudo docker run hello-world &> /dev/null
         if [ $? -eq 0 ]; then
-                echo -e "\e[1m\e[32m[+] \e[39mDocker is now installed and is working correctly"
+                echo -e "\e[1m\e[32m[+] \e[0mDocker is now installed and is working properly"
         fi
-        echo -e "\e[1m\e[32m[+] \e[39mRemoving docker containers ..."
-        sudo docker container rm -f $(sudo docker ps -aq)
-        echo -e "\e[1m\e[32m[+] \e[39mDone\nDonwloading docker-compile ..."
+        echo -e "\e[1m\e[32m[+] \e[0mRemoving docker containers ..."
+        sudo docker container rm -f $(sudo docker ps -aq) &> /dev/null
+        echo -e "\e[1m\e[32m[+] \e[0mDone\n\e[1m\e[32m[+] \e[0mDonwloading docker-compile ..."
         curl -s -o docker-compile https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
-        echo -e "\e[1m\e[32m[+] \e[39mDone"
+        echo -e "\e[1m\e[32m[+] \e[0mDone"
         if [ ! -d ~/bin/ ]; then
                 mkdir ~/bin/
                 export PATH=~/bin/:$PATH
         fi
         sudo mv docker-compile ~/bin/
         sudo chmod +x ~/bin/docker-compile
-        echo -e "\e[1m\e[32m[+] \e[39mMoved to /usr/bin.\nDon't forget to Start my repository"
+        echo -e "\e[1m\e[32m[+] \e[0mMoved to ~/bin/\n\n\e[0m\e[96mDon't forget to Star my repository - by Nathan Agez Epitech Montpellier Promo 2022\n\n"
 }
 
 version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version | tail -n 1 )
 
 function checkVersion() {
-        if [ $version != "2.3" ]; then
-                echo -e "\e[1m\e[32m[+] \e[39mUpdating ..."
+        if [ $version != "2.4" ]; then
+                echo -e "\e[1m\e[32m[+]\e[0m New update available ..."
                 curl -o docker-install.tmp https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-install.sh
+                echo -e "\e[1m\e[32m[+]\e[0m Done"
                 mv $0 docker-install.old
+                echo -e "\e[1m\e[32m[+]\e[0m Renaming actual instance ..."
                 mv docker-install.tmp docker-install.sh
                 rm -f docker-install.old
+                echo -e "\e[1m\e[32m[+]\e[0m Old instance deleted"
                 chmod +x docker-install.sh
-                echo -e "\e[1m\e[32m[+] \e[39mDone restart script"
+                echo -e "\e[1m\e[32m[+]\e[0m Done restart script"
                 exit
         fi
 }
@@ -97,11 +100,11 @@ if [ $# -eq 0 ]; then
         display_help
 fi
 
-if [ $1 = "--clean" ] && [ $2 = "--ubuntu" ]
+if [ $1 = "--clean" ]
 then
         clean_linux
         exit
-elif [ $1 = "--install" ] && [ $2 = "--ubuntu" ]
+elif [ $1 = "--install" ]
 then
         checkVersion $version
         install_linux
