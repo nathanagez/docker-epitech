@@ -2,17 +2,20 @@
 
 function checkVersion() {
         version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version | head -n 1 )
-        if [ "$version" != "1.4" ]; then
-                echo -e "\e[1m\e[32m[+] \e[39mUpdating ..."
+        if [ "$version" != "1.5" ]; then
+                echo -e "\e[1m\e[32m[+] \e[0mUpdating ..."
                 sudo curl -o docker-compile.tmp https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
                 sudo mv $0 docker-compile.old
                 sudo mv docker-compile.tmp docker-compile
                 sudo rm -f docker-compile.old
                 sudo chmod +x docker-compile
+                if [ ! -d ~/bin/ ]; then
+                        mkdir ~/bin/
+                fi
                 sudo mv docker-compile ~/bin/
                 if [ -e /usr/bin/docker-compile.sh ]
                 then
-	                echo "Delete old location"
+	                echo -e "\e[1m\e[31m[-] \e[0mDelete old location"
 	                sudo rm -f /usr/bin/docker-compile.sh
                 fi
                 echo -e "\e[1m\e[32m[+] \e[39mDone restart script"

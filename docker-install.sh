@@ -66,17 +66,20 @@ function install_linux() {
         echo -e "\e[1m\e[32m[+] \e[39mRemoving docker containers ..."
         sudo docker container rm -f $(sudo docker ps -aq)
         echo -e "\e[1m\e[32m[+] \e[39mDone\nDonwloading docker-compile ..."
-        curl -O -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
+        curl -s -o docker-compile https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
         echo -e "\e[1m\e[32m[+] \e[39mDone"
-        sudo mv docker-compile.sh /usr/bin
-        sudo chmod +x /usr/bin/docker-compile.sh
+        if [ ! -d ~/bin/ ]; then
+                mkdir ~/bin/
+        fi
+        sudo mv docker-compile ~/bin/
+        sudo chmod +x ~/bin/docker-compile
         echo -e "\e[1m\e[32m[+] \e[39mMoved to /usr/bin.\nDon't forget to Start my repository"
 }
 
 version=$(curl -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/version | tail -n 1 )
 
 function checkVersion() {
-        if [ $version != "2.1" ]; then
+        if [ $version != "2.2" ]; then
                 echo -e "\e[1m\e[32m[+] \e[39mUpdating ..."
                 curl -o docker-install.tmp https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-install.sh
                 mv $0 docker-install.old
