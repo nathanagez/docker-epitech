@@ -29,10 +29,10 @@ function checkVersion() {
 function display_help() {
         echo -e "\e[1mUSAGE :\e[0m\n\t docker-compile \e[1m[FLAG] [FLAG] [OPTION]\e[0m"
         echo -e "\e[1mFLAGS :\e[0m"
-        echo -e "\t--make               Compile project"
+        echo -e "\t-m          Compile project"
         echo -e "\e[1mOPTIONS :\e[0m"
-        echo -e "\t--valgrind           Start valgrind after compilation"
-        echo -e "\t--interactive        Start project"
+        echo -e "\t-v          Start valgrind after compilation, binary name is required"
+        echo -e "\t-i          Start project after compilation, binary name is required"
         exit
 }
 
@@ -66,14 +66,10 @@ function checkImageExist() {
                 echo -e "\e[1m\e[32m[+] \e[0mImage not found locally, it will be dowloaded from the Hub"
                 sudo docker pull epitechcontent/epitest-docker
                 startContainer $1
-                compileProject
-                deleteContainer
         else
                 echo -e "\e[1m\e[32m[+] \e[0mImage found locally"
                 echo -e "\e[1m\e[32m[+] \e[0mCopy file from host to container ..."
                 startContainer $1
-                compileProject
-                deleteContainer
         fi
 }
 
@@ -83,10 +79,19 @@ if [ $# -eq 0 ]; then
         exit
 fi
 
-if [ ! -z $1 ] && [ $2 == "--make" ]; then
+if [ ! -z $1 ] && [ $2 == "-m" ]; then
         checkVersion
         checkImageExist $1
+        compileProject
         deleteContainer
+elif [ ! -z $1 ] && [ $2 == "-m" ] && [ $3 == "-v" ] && [ ! -z $4 ]; then
+        checkVersion
+        checkImageExist $1
+        compileProject
+        if [ $? != 0 ]; then
+                echo -e "\n\e[31m/!\ Cannot go futher\e[0m"
+        fi
+
 else
         checkVersion
         display_help
