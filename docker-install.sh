@@ -67,7 +67,7 @@ function install_linux() {
                 echo -e "\e[1m\e[32m[+] \e[39mDocker is now installed and is working correctly"
         fi
         echo -e "\e[1m\e[32m[+] \e[39mRemoving docker containers ..."
-        sudo docker container rm -f $(docker ps -aq)
+        sudo docker container rm -f $(sudo docker ps -aq)
         echo -e "\e[1m\e[32m[+] \e[39mDone\nDonwloading docker-compile ..."
         curl -O -s https://raw.githubusercontent.com/NastyZ98/docker-epitech/master/docker-compile.sh
         echo -e "\e[1m\e[32m[+] \e[39mDone"
