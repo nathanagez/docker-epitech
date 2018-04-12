@@ -9,13 +9,13 @@ function checkVersion() {
                 sudo mv $0 docker-compile.old
                 sudo mv docker-compile.tmp docker-compile
                 sudo rm -f docker-compile.old
-                sudo chmod +x docker-compile
                 if [ ! -d ~/bin/ ]; then
                         mkdir ~/bin/
                         export PATH=~/bin/:$PATH
                         echo -e "\e[1m\e[32m[+] \e[0m~/bin/ added to PATH"
                 fi
                 sudo mv docker-compile ~/bin/
+                sudo chmod +x ~/bin/docker-compile
                 if [ -e /usr/bin/docker-compile.sh ]
                 then
                         echo -e "\e[1m\e[32m[+] \e[0mOld version found in /usr/bin/"
