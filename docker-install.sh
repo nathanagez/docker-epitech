@@ -31,7 +31,7 @@ function uninstall_linux() {
 }
 
 function install_linux() {
-        sudo apt-get update &> logs
+        sudo apt-get update -y &> logs
         if [ $? -ne 0 ]; then
                 echo -e "\e[1m\e[91m[-] \e[0mError while updating sources"
                 exit
@@ -40,7 +40,7 @@ function install_linux() {
         apt-transport-https \
         ca-certificates \
         curl \
-        software-properties-common &> logs
+        software-properties-common -y &> logs
         if [ $? -eq 0 ]; then
                 echo -e "\e[1m\e[32m[+] \e[0mapt-transport-https"
                 echo -e "\e[1m\e[32m[+] \e[0mca-certificates"
