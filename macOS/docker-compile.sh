@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function display_help() {
-        echo -e "\e[1mUSAGE :\e[0m\n\t docker-compile \e[1m[FLAG] [FLAG] [OPTION]\e[0m"
+        echo -e "\e[1mUSAGE :\e[0m\n\t docker-compile \e[1m[PATH] [FLAG] [OPTION]\e[0m"
         echo -e "\e[1mFLAGS :\e[0m"
         echo -e "\t-m          Compile project"
         echo -e "\e[1mOPTIONS :\e[0m"
