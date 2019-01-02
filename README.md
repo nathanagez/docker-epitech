@@ -1,7 +1,7 @@
 # docker-epitech
 Docker installation script to perfom tests  under national dump using a Fedora26 container
 
-## Installation (FOR UBUNUTU, MACOS USER LOOK TO macOS folder)
+## Installation Ubuntu (for macOS users look: https://github.com/NastyZ98/docker-epitech/tree/master/macOS)
 
 With curl
 ```shell
